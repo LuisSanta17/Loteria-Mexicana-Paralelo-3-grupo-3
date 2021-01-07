@@ -1,20 +1,16 @@
 # Loteria-Mexicana
 # Proyecto final
 
-
-
-
-
 package modelo;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import loteria.LOTERIA;
 
-public class Cartilla  implements Serializable{
+public class Cartilla  implements Serializable{    
     private ArrayList<Carta> cartilla = new ArrayList<>();
-    
     /**
      *
      */
@@ -76,7 +72,4 @@ public class Cartilla  implements Serializable{
     public String toString() {
         return "Cartilla{" + "cartilla=" + cartilla + '}';
     }
-    
-    
-    
-}
+    }
