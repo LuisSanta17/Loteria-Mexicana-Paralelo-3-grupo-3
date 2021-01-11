@@ -1,0 +1,141 @@
+package modelo;
+
+import java.io.Serializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class Carta implements Serializable{
+    private int numero;
+    private String ruta;
+    private String nombre;
+    private boolean seleccionada;
+   
+    private transient ImageView imagen;
+
+    /**
+     *
+     * @param numero
+     * @param ruta
+     * @param nombre
+     */
+    public Carta(int numero, String ruta, String nombre) {
+        this.numero = numero;
+        this.ruta = ruta;
+        this.nombre = nombre;
+        this.imagen=new ImageView(new Image(ruta));
+        seleccionada=false;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ImageView getImagen() {
+        return imagen;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean isSeleccionada() {
+        return seleccionada;
+    }
+
+    /**
+     *
+     * @param seleccionada
+     */
+    public void setSeleccionada(boolean seleccionada) {
+        this.seleccionada = seleccionada;
+    }
+
+    /**
+     *
+     * @param imagen
+     */
+    public void setImagen(ImageView imagen) {
+        this.imagen = imagen;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getNumero() {
+        return numero;
+    }
+
+    /**
+     *
+     * @param numero
+     */
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getRuta() {
+        return ruta;
+    }
+
+    /**
+     *
+     * @param ruta
+     */
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+        this.imagen=new ImageView(ruta);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     *
+     * @param nombre
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + this.numero;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Carta other = (Carta) obj;
+        if (this.numero != other.numero) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Carta{" + "numero=" + numero + ", ruta=" + ruta + ", nombre=" + nombre + ", seleccionada=" + seleccionada + '}';
+    }
+
+   
+    
+
+}
