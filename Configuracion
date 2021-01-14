@@ -1,0 +1,42 @@
+package modelo;
+
+public class Configuracion {
+    private int numeroOp;
+    private boolean visible;
+
+    public Configuracion() {
+         //Se empieza con un jugador
+        numeroOp=1;
+        //Se empieza con no visibles
+        visible=false;
+    }
+    
+    //Cantidad de oponentes
+    //Visibilidad de cartas de oponentes
+    public Configuracion(int num, boolean v) {
+        this.numeroOp=num;
+        visible=v;
+    }
+
+    public int getNumJugadores() {
+        return numeroOp;
+    }
+    
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public void setNumJugadores(int numJugadores) {
+        this.numeroOp = numJugadores;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Configuracion {" + "Cantidad de oponentes=" + numeroOp + ", visible=" + visible + '}';
+    } 
+}
