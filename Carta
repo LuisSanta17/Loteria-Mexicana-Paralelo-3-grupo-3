@@ -11,13 +11,7 @@ public class Carta implements Serializable{
     private boolean seleccionada;
    
     private transient ImageView imagen;
-
-    /**
-     *
-     * @param numero
-     * @param ruta
-     * @param nombre
-     */
+    
     public Carta(int numero, String ruta, String nombre) {
         this.numero = numero;
         this.ruta = ruta;
@@ -25,84 +19,50 @@ public class Carta implements Serializable{
         this.imagen=new ImageView(new Image(ruta));
         seleccionada=false;
     }
-
-    /**
-     *
-     * @return
-     */
+    
     public ImageView getImagen() {
         return imagen;
     }
 
-    /**
-     *
-     * @return
-     */
     public boolean isSeleccionada() {
         return seleccionada;
     }
 
-    /**
-     *
-     * @param seleccionada
-     */
+
     public void setSeleccionada(boolean seleccionada) {
         this.seleccionada = seleccionada;
-    }
-
-    /**
-     *
-     * @param imagen
-     */
+  }
     public void setImagen(ImageView imagen) {
         this.imagen = imagen;
     }
 
-    /**
-     *
-     * @return
-     */
+
     public int getNumero() {
         return numero;
     }
 
-    /**
-     *
-     * @param numero
-     */
+
     public void setNumero(int numero) {
         this.numero = numero;
     }
 
-    /**
-     *
-     * @return
-     */
+
     public String getRuta() {
         return ruta;
     }
 
-    /**
-     *
-     * @param ruta
-     */
+
     public void setRuta(String ruta) {
         this.ruta = ruta;
         this.imagen=new ImageView(ruta);
     }
 
-    /**
-     *
-     * @return
-     */
+
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     *
-     * @param nombre
-     */
+   
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
