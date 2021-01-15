@@ -1,0 +1,131 @@
+package modelo;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Objects;
+
+public class Reporte implements Comparable<Reporte> , Serializable{
+    
+    private Date inicioJuego;
+    private Date finJuego;
+    private Jugador ganador;
+    private String duracion;
+    private int cantOponentes;
+    private Alineacion alineacion;
+    private static final long serialVersionUID = 8799656478674716638L;
+
+    
+    public Reporte(Date inicioJuego, Date finJuego, Jugador ganador, int cantOponentes) {
+        this.inicioJuego = inicioJuego;
+        this.ganador = ganador;
+        this.cantOponentes = cantOponentes;
+        this.alineacion = ganador.getAlineacion();
+        Date diferencia = getDiferenciaEntreFechas(inicioJuego,finJuego);
+        String min =String.valueOf(diferencia.getMinutes());
+        if (diferencia.getMinutes()<10){
+            min="0"+ String.valueOf(diferencia.getMinutes());
+        }
+        String horas=String.valueOf(diferencia.getHours());
+        if (diferencia.getHours()<10){
+            horas="0"+String.valueOf(diferencia.getHours());
+        }
+        this.duracion=horas+":"+min+":"+String.valueOf(diferencia.getSeconds());
+    }
+    public static Date getDiferenciaEntreFechas(Date dateInicio, Date dateFinal) {
+        long milliseconds = dateFinal.getTime() - dateInicio.getTime();
+        int seconds = (int) (milliseconds / 1000) % 60;
+        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
+        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.SECOND, seconds);
+        c.set(Calendar.MINUTE, minutes);
+        c.set(Calendar.HOUR_OF_DAY, hours);
+        return c.getTime();
+    }
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.inicioJuego);
+        hash = 29 * hash + Objects.hashCode(this.ganador);
+        hash = 29 * hash + Objects.hashCode(this.duracion);
+        hash = 29 * hash + this.cantOponentes;
+        hash = 29 * hash + Objects.hashCode(this.alineacion);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Reporte other = (Reporte) obj;
+        if (!Objects.equals(this.inicioJuego, other.inicioJuego)) {
+            return false;
+        }
+        if (!Objects.equals(this.ganador, other.ganador)) {
+            return false;
+        }
+        if (!Objects.equals(this.duracion, other.duracion)) {
+            return false;
+        }
+        if (this.cantOponentes != other.cantOponentes) {
+            return false;
+        }
+        if (this.alineacion != other.alineacion) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "Reporte{" + "fechaJuego=" + inicioJuego + ", ganador=" + ganador + ", duracion=" + duracion + ", cantOponentes=" + cantOponentes + ", alineacion=" + alineacion + '}';
+    }
+    @Override
+    public int compareTo(Reporte o) {
+        Reporte r = (Reporte)o;
+        return (this.inicioJuego.compareTo(r.getInicioJuego()))*-1;
+    }
+    //Getters de cada atributo
+    public Jugador getGanador() {
+        return ganador;
+    }
+    public String getDuracion() {
+        return duracion;
+    }
+    public int getCantOponentes() {
+        return cantOponentes;
+    }
+    public Alineacion getAlineacion() {
+        return alineacion;
+    }
+    public Date getInicioJuego() {
+        return inicioJuego;
+    }
+    public Date getFinJuego() {
+        return finJuego;
+    }
+    //Seters de cada atributo
+    public void setGanador(Jugador ganador) {
+        this.ganador = ganador;
+    }
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
+    public void setCantOponentes(int cantOponentes) {
+        this.cantOponentes = cantOponentes;
+    }
+    public void setAlineacion(Alineacion alineacion) {
+        this.alineacion = alineacion;
+    }
+    public void setInicioJuego(Date inicioJuego) {
+        this.inicioJuego = inicioJuego;
+    }
+    public void setFinJuego(Date finJuego) {
+        this.finJuego = finJuego;
+    }
+}
