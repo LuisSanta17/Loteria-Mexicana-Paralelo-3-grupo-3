@@ -8,25 +8,15 @@ import loteria.LOTERIA;
 public class Cartilla  implements Serializable{
     private ArrayList<Carta> cartilla = new ArrayList<>();
     
-    /**
-     *
-     */
     public Cartilla() {
         llenarCartilla();
     }
 
-    /**
-     *
-     * @return
-     */
+
     public ArrayList<Carta> getArrCartilla() {
         return cartilla;
     }
 
-    /**
-     *
-     * @param cartilla
-     */
     public void setCartilla(ArrayList<Carta> cartilla) {
         this.cartilla = cartilla;
     }
