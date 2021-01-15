@@ -1,0 +1,28 @@
+
+package modelo;
+
+import java.io.Serializable;
+
+
+public enum Alineacion implements Serializable{
+
+    /**
+     * 4 figuras en una fila
+     */
+    FILA,
+
+    /**
+     * 4 figuras en una columna
+     */
+    COLUMNA,
+
+    /**
+     * 4 figuras de las esquinas
+     */
+    ESQUINA,
+
+    /**
+     * 4 figuras juntas en cualquier esquina 
+     */
+    JUNTAS;
+}
