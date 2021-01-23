@@ -1,101 +1,107 @@
-package modelo;
+ackage modelo;
 
 import java.io.Serializable;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-public class Carta implements Serializable{
+public class Carta implements Serializable,Comparable<Carta>
+{
+    //Atributos de clase
     private int numero;
-    private String ruta;
     private String nombre;
-    private boolean seleccionada;
-   
-    private transient ImageView imagen;
+    private String urlImagenCarta;
+    private Image imagenCarta;
+    private Image imagenCartaSeleccionada;
+    private Image imagenCartaSeleccionadaPC;
+    private Image imagenCartaBack;
+    private boolean esSeleccionado;
     
-    public Carta(int numero, String ruta, String nombre) {
+    //Constructor
+    public Carta(int numero, String nombre, 
+                 String urlImagenCarta, 
+                 Image imagenCarta,
+                 Image imagenCartaSeleccionada,
+                 Image imagenCartaSeleccionadaPC,
+                 Image imagenCartaBack) {
         this.numero = numero;
-        this.ruta = ruta;
         this.nombre = nombre;
-        this.imagen=new ImageView(new Image(ruta));
-        seleccionada=false;
+        this.urlImagenCarta = urlImagenCarta;
+        this.imagenCarta = imagenCarta;
+        this.imagenCartaSeleccionada = imagenCartaSeleccionada;
+        this.imagenCartaSeleccionadaPC = imagenCartaSeleccionadaPC;
+        this.imagenCartaBack = imagenCartaBack;
     }
     
-    public ImageView getImagen() {
-        return imagen;
-    }
-
-    public boolean isSeleccionada() {
-        return seleccionada;
-    }
-
-
-    public void setSeleccionada(boolean seleccionada) {
-        this.seleccionada = seleccionada;
-  }
-    public void setImagen(ImageView imagen) {
-        this.imagen = imagen;
-    }
-
-
+    //Getter and Setter
     public int getNumero() {
         return numero;
     }
-
 
     public void setNumero(int numero) {
         this.numero = numero;
     }
 
-
-    public String getRuta() {
-        return ruta;
-    }
-
-
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
-        this.imagen=new ImageView(ruta);
-    }
-
-
     public String getNombre() {
         return nombre;
     }
 
-   
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    public String getUrlImagenCarta() {
+        return urlImagenCarta;
+    }
+
+    public void setUrlImagenCarta(String urlImagenCarta) {
+        this.urlImagenCarta = urlImagenCarta;
+    }
+
+    public Image getImagenCarta(int jugadorSeleccionado, boolean mostrarCarta) 
+    {   
+        //JUGADOR HUMANO
+        if(jugadorSeleccionado == 1)
+        {
+            if(esSeleccionado)
+                return imagenCartaSeleccionada;
+            else
+                return imagenCarta;
+        }
+        else
+        {
+            //JUGADORES COMPUTADOR 1 Y 2
+            if(esSeleccionado)
+                return imagenCartaSeleccionadaPC;
+            else
+                if(mostrarCarta)
+                    return imagenCarta;
+                else 
+                    return imagenCartaBack;            
+        }         
+    }
+
+    public void setImagenCarta(Image imagenCarta) {
+        this.imagenCarta = imagenCarta;
+    }
+
+    public boolean getCartaSeleccionada() {
+        return esSeleccionado;
+    }
+
+    public void setCartaSeleccionada(boolean esSeleccionado) {
+        this.esSeleccionado = esSeleccionado;
+    }    
+
+    public Image getImagenCartaSeleccionadoPC() {
+        return imagenCartaSeleccionadaPC;
+    }
+
+    public void setImagenCartaSeleccionadoPC(Image imagenNaipeSeleccionadoPC) {
+        this.imagenCartaSeleccionadaPC = imagenNaipeSeleccionadoPC;
+    }
     
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.numero;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Carta other = (Carta) obj;
-        if (this.numero != other.numero) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Carta{" + "numero=" + numero + ", ruta=" + ruta + ", nombre=" + nombre + ", seleccionada=" + seleccionada + '}';
-    }
-
-   
-    
-
+    public int compareTo(Carta o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }        
 }
+
