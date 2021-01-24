@@ -1,0 +1,8 @@
+package modelo;
+
+import javafx.scene.Node;
+import modelo.Carta;
+
+public interface CartaFormatterInterface {
+    Node prepararCarta(Carta[][] mazo, Carta carta);
+}
