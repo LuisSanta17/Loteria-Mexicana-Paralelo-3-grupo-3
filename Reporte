@@ -1,11 +1,18 @@
 package modelo;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
+
 
 public class Reporte implements Comparable<Reporte> , Serializable{
     
@@ -17,7 +24,13 @@ public class Reporte implements Comparable<Reporte> , Serializable{
     private Alineacion alineacion;
     private static final long serialVersionUID = 8799656478674716638L;
 
-    
+    /**
+     * Constructor de la clase
+     * @param inicioJuego Date en la que se inicio la partida
+     * @param finJuego Date en la que se termino la partida  
+     * @param ganador Objeto tipo Jugador
+     * @param cantOponentes int cantidad de oponentes con las que se jugo en la partida, dependiendo la configuracion del usuario
+     */
     public Reporte(Date inicioJuego, Date finJuego, Jugador ganador, int cantOponentes) {
         this.inicioJuego = inicioJuego;
         this.ganador = ganador;
@@ -34,17 +47,103 @@ public class Reporte implements Comparable<Reporte> , Serializable{
         }
         this.duracion=horas+":"+min+":"+String.valueOf(diferencia.getSeconds());
     }
-    public static Date getDiferenciaEntreFechas(Date dateInicio, Date dateFinal) {
-        long milliseconds = dateFinal.getTime() - dateInicio.getTime();
-        int seconds = (int) (milliseconds / 1000) % 60;
-        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
-        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.SECOND, seconds);
-        c.set(Calendar.MINUTE, minutes);
-        c.set(Calendar.HOUR_OF_DAY, hours);
-        return c.getTime();
+
+    /**
+     * Metodo Getter del atributo 
+     * @return
+     */
+    public Jugador getGanador() {
+        return ganador;
     }
+
+    /**
+     * Permite setear el valor del atributo de tipo Jugador de la clase 
+     * @param ganador objeto de tipo Jugador
+     */
+    public void setGanador(Jugador ganador) {
+        this.ganador = ganador;
+    }
+
+    /**
+     * Metodo Getter del atributo duracion
+     * @return String el tiempo que duro la partida jugada (esta se deterina de manera automatica al ingresar las fechas de inicio y fin de la partida)
+     */
+    public String getDuracion() {
+        return duracion;
+    }
+
+    /**
+     * Permite setear el valor del atributo duracion
+     * @param duracion String con el tiempo transcurrido en toda la partida con formato "hh:mm:ss"
+     */
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
+
+    /**
+     * Metodo Getter del atributo oponentes
+     * @return int la cantidad de oponentes contra los que compitio el Jugador
+     */
+    public int getCantOponentes() {
+        return cantOponentes;
+    }
+
+    /**
+     * Permite setear el valor del atributo de la cantidad de opoentes 
+     * @param cantOponentes int cantidad de oponentes con los qe juega
+     */
+    public void setCantOponentes(int cantOponentes) {
+        this.cantOponentes = cantOponentes;
+    }
+
+    /**
+     * Metodo Getter del atributo Alineacion
+     * @return Alineacion el tipo de alineacion con la que participo el Jugador 
+     */
+    public Alineacion getAlineacion() {
+        return alineacion;
+    }
+
+    /**
+     * Metodo Getter del atributo inicio Juego 
+     * @return Date la fecha en la que empezo la partida jugada
+     */
+    public Date getInicioJuego() {
+        return inicioJuego;
+    }
+
+    /**
+     * Permite setear el valor del atributo 
+     * @param inicioJuego
+     */
+    public void setInicioJuego(Date inicioJuego) {
+        this.inicioJuego = inicioJuego;
+    }
+
+    /**
+     * Metodo Getter del atributo 
+     * @return
+     */
+    public Date getFinJuego() {
+        return finJuego;
+    }
+
+    /**
+     * Permite setear el valor del atributo
+     * @param finJuego
+     */
+    public void setFinJuego(Date finJuego) {
+        this.finJuego = finJuego;
+    }
+
+    /**
+     * Permite setear el valor del atributo
+     * @param alineacion
+     */
+    public void setAlineacion(Alineacion alineacion) {
+        this.alineacion = alineacion;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -55,6 +154,7 @@ public class Reporte implements Comparable<Reporte> , Serializable{
         hash = 29 * hash + Objects.hashCode(this.alineacion);
         return hash;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -81,51 +181,60 @@ public class Reporte implements Comparable<Reporte> , Serializable{
         }
         return true;
     }
+    
+    
     @Override
     public String toString() {
         return "Reporte{" + "fechaJuego=" + inicioJuego + ", ganador=" + ganador + ", duracion=" + duracion + ", cantOponentes=" + cantOponentes + ", alineacion=" + alineacion + '}';
     }
+    
+    /**
+     * Este metodo retorna la diferencia que hay entre las dos fechas ingresadas en los parametros
+     * @param dateInicio fecha de inicio 
+     * @param dateFinal fecha final 
+     * @return datos tipo Date con la estructura de dd mm yyyy hh:mm:ss
+     */
+    public static Date getDiferenciaEntreFechas(Date dateInicio, Date dateFinal) {
+    long milliseconds = dateFinal.getTime() - dateInicio.getTime();
+    int seconds = (int) (milliseconds / 1000) % 60;
+    int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
+    int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+    Calendar c = Calendar.getInstance();
+    c.set(Calendar.SECOND, seconds);
+    c.set(Calendar.MINUTE, minutes);
+    c.set(Calendar.HOUR_OF_DAY, hours);
+    return c.getTime();
+}
+
     @Override
     public int compareTo(Reporte o) {
         Reporte r = (Reporte)o;
         return (this.inicioJuego.compareTo(r.getInicioJuego()))*-1;
+        }
+
+    
+    //Metodos de Clase
+    public static void serializarReporte(ArrayList<Reporte> listap, String ruta){
+        try(ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(ruta))){
+            a.writeObject(listap);
+        }catch(IOException e){}
     }
-    //Getters de cada atributo
-    public Jugador getGanador() {
-        return ganador;
+        
+    public static ArrayList<Reporte> desserializarReporte(String ruta){
+        try(ObjectInputStream a = new ObjectInputStream(new FileInputStream(ruta))){
+            return (ArrayList<Reporte>) a.readObject();
+        }catch(Exception e)
+        {
+            System.out.println(e);
+            return new ArrayList<>();
+        }
     }
-    public String getDuracion() {
-        return duracion;
+    
+    public static void guardarReporte(Reporte reporte) throws Exception{
+        ArrayList<Reporte> lista= Reporte.desserializarReporte("Reporte.ser");
+        lista.add(reporte);
+        Reporte.serializarReporte(lista, "Reporte.ser");        
     }
-    public int getCantOponentes() {
-        return cantOponentes;
-    }
-    public Alineacion getAlineacion() {
-        return alineacion;
-    }
-    public Date getInicioJuego() {
-        return inicioJuego;
-    }
-    public Date getFinJuego() {
-        return finJuego;
-    }
-    //Seters de cada atributo
-    public void setGanador(Jugador ganador) {
-        this.ganador = ganador;
-    }
-    public void setDuracion(String duracion) {
-        this.duracion = duracion;
-    }
-    public void setCantOponentes(int cantOponentes) {
-        this.cantOponentes = cantOponentes;
-    }
-    public void setAlineacion(Alineacion alineacion) {
-        this.alineacion = alineacion;
-    }
-    public void setInicioJuego(Date inicioJuego) {
-        this.inicioJuego = inicioJuego;
-    }
-    public void setFinJuego(Date finJuego) {
-        this.finJuego = finJuego;
-    }
+    
+    
 }
